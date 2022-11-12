@@ -72,8 +72,9 @@ class LoginTabState extends State<LoginTab> {
                     tabs: [
                       Tab(
                         child: Text(
-                          "Phone Number",
+                          "Email",
                           style: GoogleFonts.outfit(
+                            letterSpacing: 1,
                             fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
@@ -81,9 +82,8 @@ class LoginTabState extends State<LoginTab> {
                       ),
                       Tab(
                         child: Text(
-                          "Email",
+                          "Phone Number",
                           style: GoogleFonts.outfit(
-                            letterSpacing: 1,
                             fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
@@ -97,7 +97,7 @@ class LoginTabState extends State<LoginTab> {
                 child: TabBarView(
                   children: [
                     EmailLogin(authInstance: authInstance),
-                    const PhoneLogin(),
+                    PhoneLogin(authInstance: authInstance),
                   ],
                 ),
               ),

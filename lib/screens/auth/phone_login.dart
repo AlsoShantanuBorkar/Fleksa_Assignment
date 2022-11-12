@@ -10,8 +10,8 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
 class PhoneLogin extends StatefulWidget {
-  const PhoneLogin({super.key});
-
+  const PhoneLogin({super.key,required this.authInstance});
+  final AuthService authInstance;
   @override
   State<PhoneLogin> createState() => _PhoneLoginState();
 }
@@ -32,7 +32,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService authInstance = Provider.of<AuthService>(context);
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -104,12 +104,12 @@ class _PhoneLoginState extends State<PhoneLogin> {
                   onTap: () async {
                     if (!isVisible && phoneNumberController.text.length >= 10) {
                       try {
-                        await authInstance.auth.verifyPhoneNumber(
+                        await widget.authInstance.auth.verifyPhoneNumber(
                           phoneNumber: phoneNumberController.text,
                           timeout: const Duration(seconds: 120),
                           verificationCompleted:
                               (PhoneAuthCredential credential) async {
-                            await authInstance.auth
+                            await widget.authInstance.auth
                                 .signInWithCredential(credential);
                           },
                           verificationFailed: (FirebaseAuthException e) {
@@ -134,7 +134,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                               verificationId: verificationID,
                               smsCode: pinController.text);
 
-                      await authInstance.auth
+                      await widget.authInstance.auth
                           .signInWithCredential(credential)
                           .then((value) {});
                     }
