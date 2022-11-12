@@ -96,8 +96,8 @@ class LoginTabState extends State<LoginTab> {
               Expanded(
                 child: TabBarView(
                   children: [
+                    EmailLogin(authInstance: authInstance),
                     const PhoneLogin(),
-                    EmailLogin(authInstance: authInstance)
                   ],
                 ),
               ),
