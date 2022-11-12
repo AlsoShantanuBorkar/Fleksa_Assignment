@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
 
 class PhoneLogin extends StatefulWidget {
-  const PhoneLogin({super.key,required this.authInstance});
+  const PhoneLogin({super.key, required this.authInstance});
   final AuthService authInstance;
   @override
   State<PhoneLogin> createState() => _PhoneLoginState();
@@ -32,7 +31,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -124,7 +122,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {},
                         );
-
                       } on FirebaseAuthException catch (e) {
                         log(e.message.toString());
                       }

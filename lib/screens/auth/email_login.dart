@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:eatarian_assignment/services/auth/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -24,25 +21,28 @@ class _MyPhoneState extends State<EmailLogin> with WidgetsBindingObserver {
   @override
   void initState() {
     emailController.text = "";
-    this.initDynamicLinks();
+    initDynamicLinks();
     super.initState();
   }
 
+  // Shared Preferences instance to access local storage
   Future<SharedPreferences> createSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs;
   }
 
+  // Retrive Dynamic Link
   void initDynamicLinks() async {
-    final SharedPreferences disk = await createSharedPreferences();
-    final String userEmail = disk.getString("userEmail")!;
+    final SharedPreferences localStorage = await createSharedPreferences();
+    // Retrive email from local storage
+    final String? userEmail = localStorage.getString("userEmail");
+    // Retrive Dynamic Link used by user
     final PendingDynamicLinkData? data =
         await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri? deepLink = data?.link;
 
-    log(userEmail);
-    log(deepLink.toString());
-    if (deepLink != null) {
+    
+    if (deepLink != null && userEmail != null) {
       widget.authInstance.auth.signInWithEmailLink(
           email: userEmail, emailLink: deepLink.toString());
     }
@@ -119,9 +119,11 @@ class _MyPhoneState extends State<EmailLogin> with WidgetsBindingObserver {
                     setState(() {
                       isVisible = true;
                     });
-                    final SharedPreferences disk =
+                    final SharedPreferences localStorage =
                         await createSharedPreferences();
-                    disk.setString("userEmail", emailController.text);
+                    // Store Email from file storage
+                    localStorage.setString("userEmail", emailController.text);
+                    // Send Verification Email to User
                     return await authInstance.auth.sendSignInLinkToEmail(
                         email: emailController.text,
                         actionCodeSettings: ActionCodeSettings(
