@@ -1,12 +1,11 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:eatarian_assignment/services/auth/auth_service.dart';
 import 'package:eatarian_assignment/widgets/pinput_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +17,6 @@ class PhoneLogin extends StatefulWidget {
 }
 
 class _PhoneLoginState extends State<PhoneLogin> {
-  TextEditingController countryController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController pinController = TextEditingController();
   TextEditingController buttonTextController = TextEditingController();
@@ -26,7 +24,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
   String verificationID = "";
   @override
   void initState() {
-    countryController.text = "+91";
     phoneNumberController.text = "";
     pinController.text = "";
     buttonTextController.text = "Send OTP";
@@ -47,44 +44,25 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 height: 30,
               ),
               Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 10,
+                  height: 55,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: InternationalPhoneNumberInput(
+                    spaceBetweenSelectorAndTextField: 1,
+                    inputDecoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Enter Phone Number",
                     ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        child: TextField(
-                      controller: phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Enter Phone Number",
-                      ),
-                    ))
-                  ],
-                ),
-              ),
+                    onInputChanged: (value) {
+                      phoneNumberController.text = value.phoneNumber!;
+                    },
+                  )),
               const SizedBox(
                 height: 20,
               ),
+
+              // OTP Input
               Visibility(
                   visible: isVisible,
                   child: Column(
@@ -119,6 +97,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
               const SizedBox(
                 height: 20,
               ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: InkWell(
@@ -126,8 +105,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                     if (!isVisible && phoneNumberController.text.length >= 10) {
                       try {
                         await authInstance.auth.verifyPhoneNumber(
-                          phoneNumber: countryController.text +
-                              phoneNumberController.text,
+                          phoneNumber: phoneNumberController.text,
                           timeout: const Duration(seconds: 120),
                           verificationCompleted:
                               (PhoneAuthCredential credential) async {
@@ -146,6 +124,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {},
                         );
+
                       } on FirebaseAuthException catch (e) {
                         log(e.message.toString());
                       }

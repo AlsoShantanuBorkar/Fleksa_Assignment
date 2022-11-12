@@ -18,6 +18,9 @@ class AuthWrapper extends StatelessWidget {
       return const LoginTab();
     } else {
       return Scaffold(
+        appBar: AppBar(
+          title: const Text('Eatarian Assignment'),
+        ),
         body: Center(
             child: ElevatedButton(
                 onPressed: () {

@@ -34,7 +34,6 @@ class LoginTabState extends State<LoginTab> {
           decoration: const BoxDecoration(color: Colors.white),
           child: Column(
             children: [
-              
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: SizedBox(
@@ -53,21 +52,18 @@ class LoginTabState extends State<LoginTab> {
                           child: Text(
                             "Please enter your Phone or Email",
                             style: GoogleFonts.outfit(
-                              color: Colors.grey.shade800,
-                              fontSize: 20,
-                              letterSpacing: 1
-                            ),
+                                color: Colors.grey.shade800,
+                                fontSize: 20,
+                                letterSpacing: 1),
                           ),
                         ),
                       ]),
                 ),
               ),
-
-              
               SizedBox(
                 height: 60,
                 child: AppBar(
-                  elevation: 10,
+                  elevation: 0,
                   backgroundColor: Colors.white,
                   bottom: TabBar(
                     indicatorWeight: 6,
@@ -78,7 +74,6 @@ class LoginTabState extends State<LoginTab> {
                         child: Text(
                           "Phone Number",
                           style: GoogleFonts.outfit(
-                            
                             fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
@@ -98,9 +93,7 @@ class LoginTabState extends State<LoginTab> {
                   ),
                 ),
               ),
-
-              
-               Expanded(
+              Expanded(
                 child: TabBarView(
                   children: [
                     const PhoneLogin(),
