@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "688759373205",
+    "project_id": "eatarian-assignment",
+    "storage_bucket": "eatarian-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688759373205:android:6d7eaa3189014abe914a9c",
+        "android_client_info": {
+          "package_name": "com.example.eatarian_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688759373205-o6dhnd728s9ha23fpuraet0hvqjh9199.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eatarian_assignment",
+            "certificate_hash": "4735d804331393ee0c2d918244ee58856af3a6a5"
+          }
+        },
+        {
+          "client_id": "688759373205-2il67qdd50dp4in6pgdgi5d3k1e1vjmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp80YllQ_ubcDV5RO8KrbDWkLMr-f3Sk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688759373205-2il67qdd50dp4in6pgdgi5d3k1e1vjmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
