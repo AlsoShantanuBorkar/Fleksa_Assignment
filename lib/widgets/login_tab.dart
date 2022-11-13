@@ -45,16 +45,19 @@ class LoginTabState extends State<LoginTab> {
                         Text(
                           'Login',
                           style: GoogleFonts.outfit(
-                              fontSize: 40, fontWeight: FontWeight.bold),
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(
                             "Please enter your Phone or Email",
                             style: GoogleFonts.outfit(
-                                color: Colors.grey.shade800,
-                                fontSize: 20,
-                                letterSpacing: 1),
+                              color: Colors.grey.shade800,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ]),
@@ -72,9 +75,8 @@ class LoginTabState extends State<LoginTab> {
                     tabs: [
                       Tab(
                         child: Text(
-                          "Email",
+                          "Phone Number",
                           style: GoogleFonts.outfit(
-                            letterSpacing: 1,
                             fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
@@ -82,8 +84,9 @@ class LoginTabState extends State<LoginTab> {
                       ),
                       Tab(
                         child: Text(
-                          "Phone Number",
+                          "Email",
                           style: GoogleFonts.outfit(
+                            letterSpacing: 1,
                             fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
@@ -96,8 +99,8 @@ class LoginTabState extends State<LoginTab> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    EmailLogin(authInstance: authInstance),
                     PhoneLogin(authInstance: authInstance),
+                    EmailLogin(authInstance: authInstance),
                   ],
                 ),
               ),

@@ -21,7 +21,7 @@ class _MyPhoneState extends State<EmailLogin> with WidgetsBindingObserver {
   @override
   void initState() {
     emailController.text = "";
-    initDynamicLinks();
+    widget.authInstance.initDynamicLinks(createSharedPreferences);
     super.initState();
   }
 
@@ -29,23 +29,6 @@ class _MyPhoneState extends State<EmailLogin> with WidgetsBindingObserver {
   Future<SharedPreferences> createSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs;
-  }
-
-  // Retrive Dynamic Link
-  void initDynamicLinks() async {
-    final SharedPreferences localStorage = await createSharedPreferences();
-    // Retrive email from local storage
-    final String? userEmail = localStorage.getString("userEmail");
-    // Retrive Dynamic Link used by user
-    final PendingDynamicLinkData? data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri? deepLink = data?.link;
-
-    
-    if (deepLink != null && userEmail != null) {
-      widget.authInstance.auth.signInWithEmailLink(
-          email: userEmail, emailLink: deepLink.toString());
-    }
   }
 
   @override

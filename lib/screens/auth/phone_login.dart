@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PhoneLogin extends StatefulWidget {
   const PhoneLogin({super.key, required this.authInstance});
@@ -26,8 +27,15 @@ class _PhoneLoginState extends State<PhoneLogin> {
     phoneNumberController.text = "";
     pinController.text = "";
     buttonTextController.text = "Send OTP";
+    widget.authInstance.initDynamicLinks(createSharedPreferences);
     super.initState();
   }
+
+  Future<SharedPreferences> createSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs;
+  }
+
 
   @override
   Widget build(BuildContext context) {
