@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,8 +22,14 @@ class AuthService {
     // Retrive email from local storage
     final String? userEmail = localStorage.getString("userEmail");
     // Retrive Dynamic Link used by user
-    final PendingDynamicLinkData? data =
+   final PendingDynamicLinkData? data ;
+   try {
+      data =
         await FirebaseDynamicLinks.instance.getInitialLink();
+   } catch (e) {
+     log(e.toString());
+     return;
+   }
     final Uri? deepLink = data?.link;
 
     if (deepLink != null && userEmail != null) {

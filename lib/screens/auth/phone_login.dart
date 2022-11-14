@@ -27,7 +27,11 @@ class _PhoneLoginState extends State<PhoneLogin> {
     phoneNumberController.text = "";
     pinController.text = "";
     buttonTextController.text = "Send OTP";
-    widget.authInstance.initDynamicLinks(createSharedPreferences);
+    try {
+      widget.authInstance.initDynamicLinks(createSharedPreferences);
+    } catch (e) {
+      log(e.toString());
+    }
     super.initState();
   }
 
